@@ -10,7 +10,7 @@
 {-# LANGUAGE Rank2Types #-}
 #endif
 {-|
-Module   : Test.QuickCheck.Monadic
+Module   : Test.QuickCheck.Light.Monadic
 
 Allows testing of monadic values. Will generally follow this form:
 
@@ -26,8 +26,8 @@ Example using the @FACTOR(1)@ command-line utility:
 
 @
 import System.Process
-import Test.QuickCheck
-import Test.QuickCheck.Monadic
+import Test.QuickCheck.Light
+import Test.QuickCheck.Light.Monadic
 
 -- $ factor 16
 -- 16: 2 2 2 2
@@ -38,7 +38,7 @@ factor n = parse \`fmap\` 'System.Process.readProcess' \"factor\" [show n] \"\" 
   parse = map read . tail . words
 
 prop_factor :: Positive Integer -> Property
-prop_factor ('Test.QuickCheck.Modifiers.Positive' n) = 'monadicIO' $ do
+prop_factor ('Test.QuickCheck.Light.Modifiers.Positive' n) = 'monadicIO' $ do
   factors \<- 'run' (factor n)
 
   'assert' (product factors == n)
@@ -49,7 +49,7 @@ prop_factor ('Test.QuickCheck.Modifiers.Positive' n) = 'monadicIO' $ do
 
 See the paper \"<http://www.cse.chalmers.se/~rjmh/Papers/QuickCheckST.ps Testing Monadic Code with QuickCheck>\".
 -}
-module Test.QuickCheck.Monadic (
+module Test.QuickCheck.Light.Monadic (
   -- * Property monad
     PropertyM(..)
 
@@ -76,9 +76,9 @@ module Test.QuickCheck.Monadic (
 --------------------------------------------------------------------------
 -- imports
 
-import Test.QuickCheck.Gen
-import Test.QuickCheck.Gen.Unsafe
-import Test.QuickCheck.Property
+import Test.QuickCheck.Light.Gen
+import Test.QuickCheck.Light.Gen.Unsafe
+import Test.QuickCheck.Light.Property
 
 import Control.Monad(liftM, liftM2)
 
@@ -135,7 +135,7 @@ assert False = fail "Assertion failed"
 -- should think about strictness/exceptions here
 -- | Tests preconditions. Unlike 'assert' this does not cause the
 -- property to fail, rather it discards them just like using the
--- implication combinator 'Test.QuickCheck.Property.==>'.
+-- implication combinator 'Test.QuickCheck.Light.Property.==>'.
 --
 -- This allows representing the <https://en.wikipedia.org/wiki/Hoare_logic Hoare triple>
 --

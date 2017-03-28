@@ -18,9 +18,9 @@
 -- reusing the same random number seed twice. This is unsafe because
 -- by applying the same seed to two morally equal generators, you can
 -- see whether they are really equal or not.
-module Test.QuickCheck.Gen.Unsafe where
+module Test.QuickCheck.Light.Gen.Unsafe where
 
-import Test.QuickCheck.Gen
+import Test.QuickCheck.Light.Gen
 import Control.Monad
 
 -- | Promotes a monadic generator to a generator of monadic values.

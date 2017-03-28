@@ -12,13 +12,10 @@
 #define OVERLAPPING_
 #endif
 #endif
-#ifndef NO_POLYKINDS
-{-# LANGUAGE PolyKinds #-}
-#endif
 #ifndef NO_SAFE_HASKELL
 {-# LANGUAGE Safe #-}
 #endif
-module Test.QuickCheck.Arbitrary
+module Test.QuickCheck.Light.Arbitrary
   (
   -- * Arbitrary and CoArbitrary classes
     Arbitrary(..)
@@ -79,9 +76,9 @@ module Test.QuickCheck.Arbitrary
 import Control.Applicative
 import Data.Foldable(toList)
 import System.Random(Random)
-import Test.QuickCheck.Gen
-import Test.QuickCheck.Random
-import Test.QuickCheck.Gen.Unsafe
+import Test.QuickCheck.Light.Gen
+import Test.QuickCheck.Light.Random
+import Test.QuickCheck.Light.Gen.Unsafe
 
 {-
 import Data.Generics
@@ -110,14 +107,6 @@ import Data.Fixed
   )
 #endif
 
-#ifndef NO_NATURALS
-import Numeric.Natural
-#endif
-
-#ifndef NO_PROXY
-import Data.Proxy (Proxy (..))
-#endif
-
 import Data.Ratio
   ( Ratio
   , (%)
@@ -132,11 +121,6 @@ import Data.List
   ( sort
   , nub
   )
-
-#ifndef NO_NONEMPTY
-import Data.List.NonEmpty (NonEmpty (..), nonEmpty)
-import Data.Maybe (mapMaybe)
-#endif
 
 import Data.Version (Version (..))
 
@@ -451,16 +435,6 @@ instance Arbitrary a => Arbitrary [a] where
   arbitrary = arbitrary1
   shrink = shrink1
 
-#ifndef NO_NONEMPTY
-instance Arbitrary1 NonEmpty where
-  liftArbitrary arb = liftM2 (:|) arb (liftArbitrary arb)
-  liftShrink shr (x :| xs) = mapMaybe nonEmpty . liftShrink shr $ x : xs
-
-instance Arbitrary a => Arbitrary (NonEmpty a) where
-  arbitrary = arbitrary1
-  shrink = shrink1
-#endif
-
 -- | Shrink a list of values given a shrinking function for individual values.
 shrinkList :: (a -> [a]) -> [a] -> [[a]]
 shrinkList shr xs = concat [ removes k n xs | k <- takeWhile (>0) (iterate (`div`2) n) ]
@@ -619,22 +593,6 @@ instance ( Arbitrary a, Arbitrary b, Arbitrary c, Arbitrary d, Arbitrary e
 instance Arbitrary Integer where
   arbitrary = arbitrarySizedIntegral
   shrink    = shrinkIntegral
-
-#ifndef NO_NATURALS
-instance Arbitrary Natural where
-  arbitrary = arbitrarySizedNatural
-  shrink    = shrinkIntegral
-#endif
-
-#ifndef NO_PROXY
-instance Arbitrary1 Proxy where
-  liftArbitrary _ = pure Proxy
-  liftShrink _ _ = []
-
-instance Arbitrary (Proxy a) where
-  arbitrary = pure Proxy
-  shrink _  = []
-#endif
 
 instance Arbitrary Int where
   arbitrary = arbitrarySizedIntegral
@@ -1249,11 +1207,6 @@ instance CoArbitrary a => CoArbitrary [a] where
   coarbitrary []     = variant 0
   coarbitrary (x:xs) = variant 1 . coarbitrary (x,xs)
 
-#ifndef NO_NONEMPTY
-instance CoArbitrary a => CoArbitrary (NonEmpty a) where
-  coarbitrary (x :| xs) = coarbitrary (x, xs)
-#endif
-
 instance (Integral a, CoArbitrary a) => CoArbitrary (Ratio a) where
   coarbitrary r = coarbitrary (numerator r,denominator r)
 
@@ -1299,16 +1252,6 @@ instance (CoArbitrary a, CoArbitrary b, CoArbitrary c, CoArbitrary d, CoArbitrar
 
 instance CoArbitrary Integer where
   coarbitrary = coarbitraryIntegral
-
-#ifndef NO_NATURALS
-instance CoArbitrary Natural where
-  coarbitrary = coarbitraryIntegral
-#endif
-
-#ifndef NO_PROXY
-instance CoArbitrary (Proxy a) where
-  coarbitrary _ = id
-#endif
 
 instance CoArbitrary Int where
   coarbitrary = coarbitraryIntegral

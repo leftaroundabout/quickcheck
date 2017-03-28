@@ -3,7 +3,7 @@
 {-# LANGUAGE Rank2Types #-}
 #endif
 -- | Test case generation.
-module Test.QuickCheck.Gen where
+module Test.QuickCheck.Light.Gen where
 
 --------------------------------------------------------------------------
 -- imports
@@ -24,7 +24,7 @@ import Control.Monad
 import Control.Applicative
   ( Applicative(..) )
 
-import Test.QuickCheck.Random
+import Test.QuickCheck.Light.Random
 import Data.List
 import Data.Ord
 
@@ -97,7 +97,7 @@ getSize = sized pure
 -- | Overrides the size parameter. Returns a generator which uses
 -- the given size instead of the runtime-size parameter.
 resize :: Int -> Gen a -> Gen a
-resize n _ | n < 0 = error "Test.QuickCheck.resize: negative size"
+resize n _ | n < 0 = error "Test.QuickCheck.Light.resize: negative size"
 resize n (MkGen g) = MkGen (\r _ -> g r n)
 
 -- | Adjust the size parameter, by transforming it with the given

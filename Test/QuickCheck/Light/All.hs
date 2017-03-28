@@ -6,7 +6,7 @@
 -- | Test all properties in the current module, using Template Haskell.
 -- You need to have a @{-\# LANGUAGE TemplateHaskell \#-}@ pragma in
 -- your module for any of these to work.
-module Test.QuickCheck.All(
+module Test.QuickCheck.Light.All(
   -- ** Testing all properties in a module
   quickCheckAll,
   verboseCheckAll,
@@ -17,8 +17,8 @@ module Test.QuickCheck.All(
   monomorphic) where
 
 import Language.Haskell.TH
-import Test.QuickCheck.Property hiding (Result)
-import Test.QuickCheck.Test
+import Test.QuickCheck.Light.Property hiding (Result)
+import Test.QuickCheck.Light.Test
 import Data.Char
 import Data.List
 import Control.Monad

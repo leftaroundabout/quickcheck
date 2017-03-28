@@ -17,7 +17,7 @@
 -- Examples:
 --
 -- @
--- -- Functions cannot be shown (but see "Test.QuickCheck.Function")
+-- -- Functions cannot be shown (but see "Test.QuickCheck.Light.Function")
 -- prop_TakeDropWhile ('Blind' p) (xs :: ['A']) =
 --   takeWhile p xs ++ dropWhile p xs == xs
 -- @
@@ -38,7 +38,7 @@
 -- prop_Sort ('Ordered' (xs :: ['OrdA'])) =
 --   sort xs == xs
 -- @
-module Test.QuickCheck.Modifiers
+module Test.QuickCheck.Light.Modifiers
   (
   -- ** Type-level modifiers for changing generator behavior
     Blind(..)
@@ -65,8 +65,8 @@ module Test.QuickCheck.Modifiers
 --------------------------------------------------------------------------
 -- imports
 
-import Test.QuickCheck.Gen
-import Test.QuickCheck.Arbitrary
+import Test.QuickCheck.Light.Gen
+import Test.QuickCheck.Light.Arbitrary
 
 import Data.List
   ( sort

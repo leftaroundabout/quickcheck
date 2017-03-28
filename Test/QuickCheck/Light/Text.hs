@@ -1,5 +1,5 @@
 -- | Terminal control. Internal QuickCheck module.
-module Test.QuickCheck.Text
+module Test.QuickCheck.Light.Text
   ( Str(..)
   , ranges
 
@@ -38,7 +38,7 @@ import System.IO
   )
 
 import Data.IORef
-import Test.QuickCheck.Exception
+import Test.QuickCheck.Light.Exception
 
 --------------------------------------------------------------------------
 -- literal string

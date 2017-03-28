@@ -3,17 +3,17 @@
 #ifndef NO_SAFE_HASKELL
 {-# LANGUAGE Safe #-}
 #endif
-module Test.QuickCheck.Property where
+module Test.QuickCheck.Light.Property where
 
 --------------------------------------------------------------------------
 -- imports
 
-import Test.QuickCheck.Gen
-import Test.QuickCheck.Gen.Unsafe
-import Test.QuickCheck.Arbitrary
-import Test.QuickCheck.Text( isOneLine, putLine )
-import Test.QuickCheck.Exception
-import Test.QuickCheck.State hiding (labels)
+import Test.QuickCheck.Light.Gen
+import Test.QuickCheck.Light.Gen.Unsafe
+import Test.QuickCheck.Light.Arbitrary
+import Test.QuickCheck.Light.Text( isOneLine, putLine )
+import Test.QuickCheck.Light.Exception
+import Test.QuickCheck.Light.State hiding (labels)
 
 #ifndef NO_TIMEOUT
 import System.Timeout(timeout)

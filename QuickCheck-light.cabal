@@ -1,4 +1,4 @@
-Name: QuickCheck
+Name: QuickCheck-light
 Version: 2.9.2
 Cabal-Version: >= 1.8
 Build-type: Simple
@@ -30,23 +30,6 @@ Description:
   <http://www.cse.chalmers.se/~rjmh/QuickCheck/manual.html>
   and a detailed tutorial at
   <https://begriffs.com/posts/2017-01-14-design-use-quickcheck.html>.
-  .
-  There are several useful QuickCheck-related packages developed by other people:
-  .
-  * <http://hackage.haskell.org/package/quickcheck-instances quickcheck-instances> - `Arbitrary` instances which are not included in QuickCheck itself.
-  * <http://hackage.haskell.org/package/QuickCheck-GenT QuickCheck-GenT> - a monad transformer based on `Gen`.
-  * <http://hackage.haskell.org/package/testing-feat testing-feat> - high-quality automatic `Arbitrary` instances using Template Haskell.
-
-extra-source-files:
-  README
-  changelog
-  examples/Heap.hs
-  examples/Heap_Program.hs
-  examples/Heap_ProgramAlgebraic.hs
-  examples/Lambda.hs
-  examples/Merge.hs
-  examples/Set.hs
-  examples/Simple.hs
 
 source-repository head
   type:     git
@@ -61,35 +44,30 @@ flag templateHaskell
   Description: Build Test.QuickCheck.All, which uses Template Haskell.
   Default: True
 
-flag light
-  Description:
-    Build with as few dependencies as possible.
-    Some instances will be missing, but build time will be reduced.
-    Can be useful on e.g. Travis.
-  Default: False
-
 library
   Build-depends: base >=4.3 && <5, random, containers, array
 
+  -- START use full/update to copy to QuickCheck.cabal
+
   -- Modules that are always built.
   Exposed-Modules:
-    Test.QuickCheck,
-    Test.QuickCheck.Arbitrary,
-    Test.QuickCheck.Gen,
-    Test.QuickCheck.Gen.Unsafe,
-    Test.QuickCheck.Monadic,
-    Test.QuickCheck.Modifiers,
-    Test.QuickCheck.Property,
-    Test.QuickCheck.Test,
-    Test.QuickCheck.Text,
-    Test.QuickCheck.Poly,
-    Test.QuickCheck.State,
-    Test.QuickCheck.Random,
-    Test.QuickCheck.Exception
+    Test.QuickCheck.Light,
+    Test.QuickCheck.Light.Arbitrary,
+    Test.QuickCheck.Light.Gen,
+    Test.QuickCheck.Light.Gen.Unsafe,
+    Test.QuickCheck.Light.Monadic,
+    Test.QuickCheck.Light.Modifiers,
+    Test.QuickCheck.Light.Property,
+    Test.QuickCheck.Light.Test,
+    Test.QuickCheck.Light.Text,
+    Test.QuickCheck.Light.Poly,
+    Test.QuickCheck.Light.State,
+    Test.QuickCheck.Light.Random,
+    Test.QuickCheck.Light.Exception
 
   -- GHC-specific modules.
   if impl(ghc)
-    Exposed-Modules: Test.QuickCheck.Function
+    Exposed-Modules: Test.QuickCheck.Light.Function
     Build-depends: transformers >= 0.3, deepseq
   else
     cpp-options: -DNO_TRANSFORMERS -DNO_DEEPSEQ
@@ -97,7 +75,7 @@ library
   if impl(ghc) && flag(templateHaskell) && !impl(haste)
     Build-depends: template-haskell >= 2.4
     Other-Extensions: TemplateHaskell
-    Exposed-Modules: Test.QuickCheck.All
+    Exposed-Modules: Test.QuickCheck.Light.All
   else
     cpp-options: -DNO_TEMPLATE_HASKELL
 
@@ -121,30 +99,6 @@ library
   else
     cpp-options: -DNO_TF_RANDOM
 
-  if impl(ghc) && (impl(ghc >= 7.8) || !flag(light))
-    -- 'Data.Proxy' is available in base only since GHC 7.8 / base-4.7
-    if impl(ghc < 7.8)
-      build-depends: tagged>=0.8.5
-  else
-      cpp-options: -DNO_PROXY
-
-  if !impl(ghc >= 7.6)
-      cpp-options: -DNO_POLYKINDS
-
-  if impl(ghc) && (impl(ghc >= 7.10) || !flag(light))
-    if impl(ghc < 7.10)
-      -- `Numeric.Natural` is available in base only since GHC 7.10 / base 4.8
-      build-depends: nats>=1
-  else
-      cpp-options: -DNO_NATURALS
-
-  if impl(ghc) && (impl(ghc >= 8.0) || !flag(light))
-    -- 'Data.List.NonEmpty' is available in base only since GHC 8.0 / base 4.9
-    if impl(ghc < 8.0)
-      build-depends: semigroups >=0.9
-  else
-      cpp-options: -DNO_NONEMPTY
-
   -- Switch off most optional features on non-GHC systems.
   if !impl(ghc)
     -- If your Haskell compiler can cope without some of these, please
@@ -164,39 +118,4 @@ library
     -- Plus some bits of the standard library are missing.
     cpp-options: -DNO_FIXED -DNO_EXCEPTIONS
 
-Test-Suite test-quickcheck
-    type: exitcode-stdio-1.0
-    hs-source-dirs:
-        examples
-    main-is: Heap.hs
-    build-depends: base, QuickCheck
-    if !flag(templateHaskell) || impl(haste)
-        Buildable: False
-
-Test-Suite test-quickcheck-gcoarbitrary
-    type: exitcode-stdio-1.0
-    hs-source-dirs: tests
-    main-is: GCoArbitraryExample.hs
-    build-depends: base, QuickCheck
-    if !impl(ghc >= 7.2) || impl(haste)
-        buildable: False
-    if impl(ghc >= 7.2) && impl(ghc < 7.6)
-        build-depends: ghc-prim
-
-Test-Suite test-quickcheck-generators
-    type: exitcode-stdio-1.0
-    hs-source-dirs: tests
-    main-is: Generators.hs
-    build-depends: base, QuickCheck
-    if !flag(templateHaskell) || impl(haste)
-        Buildable: False
-
-Test-Suite test-quickcheck-gshrink
-    type: exitcode-stdio-1.0
-    hs-source-dirs: tests
-    main-is: GShrinkExample.hs
-    build-depends: base, QuickCheck
-    if !impl(ghc >= 7.2) || impl(haste)
-        buildable: False
-    if impl(ghc >= 7.2) && impl(ghc < 7.6)
-        build-depends: ghc-prim
+  -- END full/update

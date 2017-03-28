@@ -3,19 +3,19 @@
 #ifndef NO_SAFE_HASKELL
 {-# LANGUAGE Safe #-}
 #endif
-module Test.QuickCheck.Test where
+module Test.QuickCheck.Light.Test where
 
 --------------------------------------------------------------------------
 -- imports
 
-import Test.QuickCheck.Gen
-import Test.QuickCheck.Property hiding ( Result( reason, theException, labels ) )
-import qualified Test.QuickCheck.Property as P
-import Test.QuickCheck.Text
-import Test.QuickCheck.State hiding (labels)
-import qualified Test.QuickCheck.State as S
-import Test.QuickCheck.Exception
-import Test.QuickCheck.Random
+import Test.QuickCheck.Light.Gen
+import Test.QuickCheck.Light.Property hiding ( Result( reason, theException, labels ) )
+import qualified Test.QuickCheck.Light.Property as P
+import Test.QuickCheck.Light.Text
+import Test.QuickCheck.Light.State hiding (labels)
+import qualified Test.QuickCheck.Light.State as S
+import Test.QuickCheck.Light.Exception
+import Test.QuickCheck.Light.Random
 import System.Random(split)
 #if defined(MIN_VERSION_containers)
 #if MIN_VERSION_containers(0,5,0)

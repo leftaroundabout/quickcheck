@@ -1,8 +1,8 @@
 -- | QuickCheck's internal state. Internal QuickCheck module.
-module Test.QuickCheck.State where
+module Test.QuickCheck.Light.State where
 
-import Test.QuickCheck.Text
-import Test.QuickCheck.Random
+import Test.QuickCheck.Light.Text
+import Test.QuickCheck.Light.Random
 import Data.Map(Map)
 import Data.Set(Set)
 

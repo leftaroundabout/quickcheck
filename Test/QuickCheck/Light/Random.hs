@@ -3,7 +3,7 @@
 #ifndef NO_SAFE_HASKELL
 {-# LANGUAGE Trustworthy #-}
 #endif
-module Test.QuickCheck.Random where
+module Test.QuickCheck.Light.Random where
 
 #ifndef NO_TF_RANDOM
 import System.Random

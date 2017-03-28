@@ -8,9 +8,9 @@
 -- implement 'Eq', 'Show', 'Arbitrary' and 'CoArbitrary'. Types
 -- 'OrdA', 'OrdB' and 'OrdC' also implement 'Ord' and 'Num'.
 --
--- See also "Test.QuickCheck.All" for an automatic way of testing
+-- See also "Test.QuickCheck.Light.All" for an automatic way of testing
 -- polymorphic properties.
-module Test.QuickCheck.Poly
+module Test.QuickCheck.Light.Poly
   ( A(..), B(..), C(..)
   , OrdA(..), OrdB(..), OrdC(..)
   )
@@ -19,7 +19,7 @@ module Test.QuickCheck.Poly
 --------------------------------------------------------------------------
 -- imports
 
-import Test.QuickCheck.Arbitrary
+import Test.QuickCheck.Light.Arbitrary
 
 --------------------------------------------------------------------------
 -- polymorphic A, B, C (in Eq)
