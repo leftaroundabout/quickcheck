@@ -12,9 +12,6 @@
 #define OVERLAPPING_
 #endif
 #endif
-#ifndef NO_POLYKINDS
-{-# LANGUAGE PolyKinds #-}
-#endif
 #ifndef NO_SAFE_HASKELL
 {-# LANGUAGE Safe #-}
 #endif

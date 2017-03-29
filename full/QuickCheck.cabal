@@ -116,9 +116,6 @@ library
   else
     cpp-options: -DNO_TF_RANDOM
 
-  if !impl(ghc >= 7.6)
-      cpp-options: -DNO_POLYKINDS
-
   -- Switch off most optional features on non-GHC systems.
   if !impl(ghc)
     -- If your Haskell compiler can cope without some of these, please
