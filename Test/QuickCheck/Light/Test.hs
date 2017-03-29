@@ -3,7 +3,33 @@
 #ifndef NO_SAFE_HASKELL
 {-# LANGUAGE Safe #-}
 #endif
-module Test.QuickCheck.Light.Test where
+module Test.QuickCheck.Light.Test(
+  Args(..),
+  Result(..),
+  isSuccess,
+  stdArgs,
+  quickCheck,
+  quickCheckWith,
+  quickCheckResult,
+  quickCheckWithResult,
+  verboseCheck,
+  verboseCheckWith,
+  verboseCheckResult,
+  verboseCheckWithResult,
+  test,
+  doneTesting,
+  giveUp,
+  runATest,
+  summary,
+  success,
+  labelPercentage,
+  insufficientCoverage,
+  foundFailure,
+  localMin,
+  localMin',
+  localMinFound,
+  callbackPostTest,
+  callbackPostFinalFailure) where
 
 --------------------------------------------------------------------------
 -- imports

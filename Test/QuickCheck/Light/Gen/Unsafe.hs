@@ -18,7 +18,13 @@
 -- reusing the same random number seed twice. This is unsafe because
 -- by applying the same seed to two morally equal generators, you can
 -- see whether they are really equal or not.
-module Test.QuickCheck.Light.Gen.Unsafe where
+module Test.QuickCheck.Light.Gen.Unsafe(
+#ifndef NO_ST_MONAD
+  Capture(..),
+  capture,
+#endif
+  promote,
+  delay) where
 
 import Test.QuickCheck.Light.Gen
 import Control.Monad

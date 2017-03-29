@@ -4,7 +4,15 @@
 -- exceptions behind a nice API. The main trouble is catching ctrl-C.
 
 {-# LANGUAGE CPP #-}
-module Test.QuickCheck.Light.Exception where
+module Test.QuickCheck.Light.Exception(
+  AnException,
+  tryEvaluate,
+  tryEvaluateIO,
+  evaluate,
+  isInterrupt,
+  discard,
+  isDiscard,
+  finally) where
 
 #if !defined(__GLASGOW_HASKELL__) || (__GLASGOW_HASKELL__ < 700)
 #define OLD_EXCEPTIONS

@@ -1,5 +1,5 @@
 -- | QuickCheck's internal state. Internal QuickCheck module.
-module Test.QuickCheck.Light.State where
+module Test.QuickCheck.Light.State(State(..)) where
 
 import Test.QuickCheck.Light.Text
 import Test.QuickCheck.Light.Random

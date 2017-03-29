@@ -3,7 +3,17 @@
 #ifndef NO_SAFE_HASKELL
 {-# LANGUAGE Trustworthy #-}
 #endif
-module Test.QuickCheck.Light.Random where
+module Test.QuickCheck.Light.Random(
+  newTheGen, mkTheGen,
+#ifndef NO_TF_RANDOM
+  bits, mask, doneBit,
+#endif
+  chip, chop, stop,
+  QCGen(..),
+  newQCGen, mkQCGen,
+  bigNatVariant, natVariant,
+  variantTheGen, boolVariant, variantQCGen) where
+  
 
 #ifndef NO_TF_RANDOM
 import System.Random

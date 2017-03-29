@@ -3,7 +3,30 @@
 {-# LANGUAGE Rank2Types #-}
 #endif
 -- | Test case generation.
-module Test.QuickCheck.Light.Gen where
+module Test.QuickCheck.Light.Gen(
+  Gen(..),
+  variant,
+  sized,
+  getSize,
+  resize,
+  scale,
+  choose,
+  chooseAny,
+  generate,
+  sample',
+  sample,
+  suchThat,
+  suchThatMaybe,
+  oneof,
+  frequency,
+  elements,
+  sublistOf,
+  shuffle,
+  growingElements,
+  listOf,
+  listOf1,
+  vectorOf,
+  infiniteListOf) where
 
 --------------------------------------------------------------------------
 -- imports
